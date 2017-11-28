@@ -11,6 +11,9 @@ class TestBus < Minitest::Test
     @person1 = Person.new("Mark", 22)
     @person2 = Person.new("Jon Ronson", 47)
     @kirkhill = BusStop.new("Kirkhill")
+    @carcassone = BusStop.new("Carcassone")
+    @french_dude = Person.new("Francois", 98)
+    @french_lady = Person.new("Madamoiselle Shelle", 0)
   end
 
   def test_bus_route_number
@@ -55,5 +58,18 @@ class TestBus < Minitest::Test
     assert_equal(2, @bus1.number_of_passengers)
     assert_equal([], @kirkhill.queue())
   end
+
+  def test_pick_up_more_folk
+    @carcassone.add_to_queue(@french_dude)
+    @carcassone.add_to_queue(@french_lady)
+    @kirkhill.add_to_queue(@person1)
+    @kirkhill.add_to_queue(@person2)
+    @bus1.pick_up(@person1)
+    @bus1.pick_all_up_from(@carcassone)
+    assert_equal(3, @bus1.number_of_passengers)
+    assert_equal([], @carcassone.queue())
+  end
+
+
 
 end
