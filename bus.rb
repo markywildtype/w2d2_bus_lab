@@ -28,4 +28,10 @@ attr_reader :route_number, :passengers
     @passengers.clear()
     # @passengers = []
   end
+
+  def pick_all_up_from(bus_stop)
+    passengers_at_stop = bus_stop.queue()
+    @passengers.concat(bus_stop.queue())
+    passengers_at_stop.clear()
+  end
 end
